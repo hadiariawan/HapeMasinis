@@ -31,8 +31,7 @@ $results = json_decode($results);
 
 $results = array_reverse($results->results);
 foreach($results as $item){    
-    // jika id_str blom ada di db maka insert(jika tweet bukan dari diri sendiri) dan retweet
-    // jika id_str sudah ada di db abaikan
+    // if current tweet id not exists in database, then retweet and insert current tweet to database.
     $rs = mysql_query("SELECT * FROM `hapemasinis` WHERE tweet_id = '" . $item->id_str . "'");
     $num_rows = mysql_num_rows($rs);    
     if($num_rows == 0){
@@ -46,8 +45,5 @@ foreach($results as $item){
     }
     
 }
-//$tweet->post('statuses/update', array('status' => 'ahelah! begok!'));
-//$tweet->post('statuses/retweet', array('id' => 67953809883795456 ));
-//print_r($tweet->get('statuses/show', array('id' => 67953809883795456 )));
 
 ?>
