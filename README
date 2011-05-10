@@ -1,1 +1,6 @@
-README-------------------------------------1. upload all files to server2. edit file hp-masinis.php (hostname, dbname, login and password)3. create database and name it "edisikrl" and import edisiKRL.sql to add 'hapemasinis' table.
+README
+-------------------------------------
+1. upload all files to server
+2. edit file hp-masinis.php (hostname, dbname, login and password)
+3. edit file hp-masinis.php (consumerKey,consumerSecret,oAuthToken and oAuthSecret)
+4. create database and name it "edisikrl" and import edisiKRL.sql to add 'hapemasinis' table.
