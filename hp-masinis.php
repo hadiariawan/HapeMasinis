@@ -1,0 +1,53 @@
+<?php
+error_reporting(0);
+/* connect */
+$hostname = 'localhost';
+$username = 'root';
+$password = '';
+$dbname = 'edisikrl';
+
+$link = mysql_connect($hostname, $username, $password);
+if (!$link) {
+    die('Could not connect: ' . mysql_error());
+}
+
+$db_selected = mysql_select_db($dbname, $link);
+if (!$db_selected) {
+    die ('Can\'t use foo : ' . mysql_error());
+}
+/* connect */
+
+$consumerKey    = 'FJVVd5MWf7NKMWDu3zY8w';
+$consumerSecret = 'D062VqnQl5b87tyM0fcyRfPoKT86CKjfBlegERayzKk';
+$oAuthToken     = '296368797-PmvlOImAMWU0zYTucmCIus2izBowjjuTl29sUZbg';
+$oAuthSecret    = 'HTN4fzbCxE1qKbW1QTT5xrPyjJHMirFpeAzqnqjcNRo';
+
+require_once('twitteroauth.php');
+
+$tweet = new TwitterOAuth($consumerKey, $consumerSecret, $oAuthToken, $oAuthSecret);
+
+$results = file_get_contents('http://search.twitter.com/search.json?q=%23edisiKRL');
+$results = json_decode($results);
+
+$results = array_reverse($results->results);
+foreach($results as $item){    
+    // jika id_str blom ada di db maka insert(jika tweet bukan dari diri sendiri) dan retweet
+    // jika id_str sudah ada di db abaikan
+    $rs = mysql_query("SELECT * FROM `hapemasinis` WHERE tweet_id = '" . $item->id_str . "'");
+    $num_rows = mysql_num_rows($rs);    
+    if($num_rows == 0){
+        if(strtolower($item->from_user) != 'edisikrl'){
+            //retweet
+            $statusText = 'RT @' . $item->from_user . ': ' . $item->text;
+            $tweet->post('statuses/update', array('status' => $statusText));
+            //insert
+            mysql_query("INSERT INTO `hapemasinis` VALUES('".$item->id_str."','".$item->from_user."','".$item->text."','".$item->source."','".$item->created_at."')");
+        }
+    }
+    
+}
+//$tweet->post('statuses/update', array('status' => 'ahelah! begok!'));
+//$tweet->post('statuses/retweet', array('id' => 67953809883795456 ));
+//print_r($tweet->get('statuses/show', array('id' => 67953809883795456 )));
+
+?>
