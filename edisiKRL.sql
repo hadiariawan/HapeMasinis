@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS `hapemasinis` (  `tweet_id` varchar(255) NOT NULL,  `tweet_from_user` varchar(255) DEFAULT NULL,  `tweet_text` varchar(255) DEFAULT NULL,  `tweet_source` varchar(255) DEFAULT NULL,  `tweet_created_at` varchar(255) DEFAULT NULL,  PRIMARY KEY (`tweet_id`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;
