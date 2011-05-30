@@ -17,10 +17,10 @@ if (!$db_selected) {
 }
 /* connect */
 
-$consumerKey    = 'FJVVd5MWf7NKMWDu3zY8w';
-$consumerSecret = 'D062VqnQl5b87tyM0fcyRfPoKT86CKjfBlegERayzKk';
-$oAuthToken     = '296368797-PmvlOImAMWU0zYTucmCIus2izBowjjuTl29sUZbg';
-$oAuthSecret    = 'HTN4fzbCxE1qKbW1QTT5xrPyjJHMirFpeAzqnqjcNRo';
+$consumerKey    = 'your-comsumer-key';
+$consumerSecret = 'your-consumer-secret-key';
+$oAuthToken     = 'your-oauth-token';
+$oAuthSecret    = 'your-oauth-secret';
 
 require_once('twitteroauth.php');
 
